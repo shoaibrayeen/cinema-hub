@@ -36,8 +36,8 @@ const Clapperboard = () => (
     <text x="120" y="126" fontSize="10" fill="#9a9a9a" letterSpacing="1">ROLL</text>
     <text x="155" y="127" fontSize="11" fill="#f5f5f5" fontWeight="600">∞</text>
 
-    <text x="30" y="151" fontSize="10" fill="#9a9a9a" letterSpacing="1">DIRECTOR</text>
-    <text x="90" y="151" fontSize="10" fill="#f5f5f5">React Router</text>
+    <text x="30" y="151" fontSize="10" fill="#9a9a9a" letterSpacing="1">DIR.</text>
+    <text x="62" y="151" fontSize="10" fill="#f5f5f5">React Router</text>
   </svg>
 );
 
