@@ -95,4 +95,11 @@ checkout → setup-node 22 (npm cache) → npm ci → npm test → npm run build
 
 ## Testing
 
-Vitest + jsdom + Testing Library (`vitest.config.ts`, `src/test/setup.ts`). `npm test` runs once (CI mode); `npm run test:watch` for development.
+Vitest + jsdom + Testing Library (`vitest.config.ts`, `src/test/setup.ts` — mocks matchMedia/ResizeObserver/scrollIntoView). `npm test` runs once (CI mode); `npm run test:watch` for development. **Every change must ship with tests, and every source file must be covered** — the file→suite mapping and exclusion policy live in [.claude/rules.md](.claude/rules.md). Suites:
+
+- `src/test/mediaData.test.ts` — catalog integrity (valid languages/statuses/platforms/years, entries filed under their own language, no duplicate names) and helper contracts (`getStats`, `getAllGenres`, `getPlatformColor`)
+- `src/test/app.test.tsx` — App providers + routing for `/`, `/movies`, `/tv-shows`, the 404 fallback, the portfolio-synced About Me card
+- `src/test/pages.test.tsx` — per-page rendering: Index hero/About/hobbies, Movies (default English catalog renders real entries), TVShows (default Korean catalog), NotFound clapperboard + escape links
+- `src/test/components.test.tsx` — Header (links + active state), Footer, MediaCard (movie/TV variants), HorizontalCarousel (incl. empty state), FilterControls (conditional status selector), NavLink (active class)
+- `src/test/hooks.test.tsx` — useIsMobile breakpoint behavior; useToast add/limit/dismiss
+- `src/test/utils.test.ts` — `cn()` class merging and tailwind conflict resolution
