@@ -15,6 +15,7 @@ export const LANGUAGES = [
   "Norwegian",
   "Polish",
   "Vietnamese",
+  "Portuguese",
 ] as const;
 
 export type Language = (typeof LANGUAGES)[number];
@@ -55,6 +56,9 @@ export const moviesData: Record<string, Movie[]> = {
     { name: "I Love Lizzy", genre: ["Drama", "Romance"], year: 2023, playtime: "1h 42m", language: "Filipino", platform: "Netflix", status: "Watched" },
   ],
   Spanish: [
+    { name: "Our Fault", genre: ["Romance", "Drama"], year: 2025, playtime: "1h 58m", language: "Spanish", platform: "Prime", status: "Watched" },
+    { name: "Your Fault", genre: ["Romance", "Drama"], year: 2024, playtime: "1h 57m", language: "Spanish", platform: "Prime", status: "Watched" },
+    { name: "My Fault", genre: ["Romance", "Drama"], year: 2023, playtime: "1h 57m", language: "Spanish", platform: "Prime", status: "Watched" },
     { name: "Y Tu Mamá También", genre: ["Drama", "Comedy"], year: 2001, playtime: "1h 46m", language: "Spanish", platform: "Netflix", status: "Watched" },
     { name: "Through My Window", genre: ["Drama", "Romance"], year: 2022, playtime: "1h 53m", language: "Spanish", platform: "Netflix", status: "Watched" },
     { name: "Through My Window: Across the Sea", genre: ["Drama", "Romance"], year: 2023, playtime: "1h 50m", language: "Spanish", platform: "Netflix", status: "Watched" },
@@ -73,6 +77,7 @@ export const moviesData: Record<string, Movie[]> = {
     { name: "Filip", genre: ["Drama", "War"], year: 2022, playtime: "2h 00m", language: "Polish", platform: "Netflix", status: "Watched" },
   ],
   Telugu: [
+    { name: "Michael", genre: ["Action", "Crime", "Thriller"], year: 2023, playtime: "2h 35m", language: "Telugu", platform: "Prime", status: "Planned" },
     { name: "Sita Ramam", genre: ["Drama", "Romance"], year: 2022, playtime: "2h 43m", language: "Telugu", platform: "Prime", status: "Watched" },
     { name: "Jaanu", genre: ["Drama", "Romance"], year: 2020, playtime: "2h 31m", language: "Telugu", platform: "Prime", status: "Watched" },
     { name: "V", genre: ["Action", "Thriller"], year: 2020, playtime: "2h 20m", language: "Telugu", platform: "Prime", status: "Watched" },
@@ -126,6 +131,7 @@ export const moviesData: Record<string, Movie[]> = {
     { name: "Bagheera", genre: ["Action", "Thriller"], year: 2024, playtime: "2h 38m", language: "Kannada", platform: "Netflix", status: "Watched" }
   ],
   Hindi: [
+    { name: "Laapataa Ladies", genre: ["Comedy", "Drama"], year: 2024, playtime: "2h 02m", language: "Hindi", platform: "Netflix", status: "Watched" },
     // --- Direct Additions Requested ---
     { name: "Pathaan", genre: ["Action", "Thriller"], year: 2023, playtime: "2h 26m", language: "Hindi", platform: "Theater", status: "Watched" },
     { name: "Happy Patel: Khatarnak Jasoos", genre: ["Action", "Comedy"], year: 2026, playtime: "2h 01m", language: "Hindi", platform: "Theater", status: "Watched" },
@@ -201,9 +207,11 @@ export const moviesData: Record<string, Movie[]> = {
     { name: "Satyameva Jayate 2", genre: ["Action", "Crime"], year: 2021, playtime: "2h 18m", language: "Hindi", platform: "Prime", status: "Watched" }
   ],
   Chinese: [
+    { name: "Ne Zha 2", genre: ["Animation", "Fantasy", "Action"], year: 2025, playtime: "2h 24m", language: "Chinese", platform: "HBO", status: "Watched" },
     { name: "A Choo", genre: ["Romance", "Drama", "Sci-Fi"], year: 2020, playtime: "1h 42m", language: "Chinese", platform: "Netflix", status: "Watched" }
   ],
   Tamil: [
+    { name: "Blast", genre: ["Action", "Thriller"], year: 2026, playtime: "2h 24m", language: "Tamil", platform: "Netflix", status: "Watched" },
     { name: "96", genre: ["Drama", "Romance"], year: 2018, playtime: "2h 38m", language: "Tamil", platform: "YouTube", status: "Watched" },
     { name: "Coolie", genre: ["Action", "Thriller"], year: 2025, playtime: "2h 49m", language: "Tamil", platform: "Prime", status: "Watched" },
     { name: "Thadam", genre: ["Crime", "Thriller"], year: 2019, playtime: "2h 20m", language: "Tamil", platform: "Other", status: "Watched" },
@@ -247,6 +255,68 @@ export const moviesData: Record<string, Movie[]> = {
     { name: "On Your Wedding Day", genre: ["Romance", "Drama"], year: 2018, playtime: "1h 50m", language: "Korean", platform: "Other", status: "Watched" }
   ],
   English: [
+    { name: "Supergirl", genre: ["Action", "Adventure", "Sci-Fi"], year: 2026, playtime: "1h 48m", language: "English", platform: "Theater", status: "Watched" },
+    { name: "Joker: Folie à Deux", genre: ["Crime", "Drama", "Thriller"], year: 2024, playtime: "2h 18m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Blue Beetle", genre: ["Action", "Adventure", "Sci-Fi"], year: 2023, playtime: "2h 07m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Aquaman and the Lost Kingdom", genre: ["Action", "Adventure", "Fantasy"], year: 2023, playtime: "2h 04m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Shazam! Fury of the Gods", genre: ["Action", "Adventure", "Comedy"], year: 2023, playtime: "2h 10m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Black Adam", genre: ["Action", "Adventure", "Fantasy"], year: 2022, playtime: "2h 05m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "The Suicide Squad", genre: ["Action", "Adventure", "Comedy"], year: 2021, playtime: "2h 12m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Joker", genre: ["Crime", "Drama", "Thriller"], year: 2019, playtime: "2h 02m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Shazam!", genre: ["Action", "Comedy", "Fantasy"], year: 2019, playtime: "2h 12m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Aquaman", genre: ["Action", "Adventure", "Fantasy"], year: 2018, playtime: "2h 23m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Wonder Woman", genre: ["Action", "Adventure", "Fantasy"], year: 2017, playtime: "2h 21m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Suicide Squad", genre: ["Action", "Adventure", "Fantasy"], year: 2016, playtime: "2h 03m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "The Fantastic Four: First Steps", genre: ["Action", "Sci-Fi", "Adventure"], year: 2025, playtime: "1h 55m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Captain America: Brave New World", genre: ["Action", "Sci-Fi", "Thriller"], year: 2025, playtime: "1h 58m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Deadpool & Wolverine", genre: ["Action", "Comedy", "Sci-Fi"], year: 2024, playtime: "2h 08m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "The Marvels", genre: ["Action", "Adventure", "Sci-Fi"], year: 2023, playtime: "1h 45m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Guardians of the Galaxy Vol. 3", genre: ["Action", "Adventure", "Sci-Fi"], year: 2023, playtime: "2h 29m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Ant-Man and the Wasp: Quantumania", genre: ["Action", "Adventure", "Sci-Fi"], year: 2023, playtime: "2h 05m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Black Panther: Wakanda Forever", genre: ["Action", "Adventure", "Drama"], year: 2022, playtime: "2h 41m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Thor: Love and Thunder", genre: ["Action", "Adventure", "Comedy"], year: 2022, playtime: "1h 59m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Doctor Strange in the Multiverse of Madness", genre: ["Action", "Fantasy", "Thriller"], year: 2022, playtime: "2h 06m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Spider-Man: No Way Home", genre: ["Action", "Adventure", "Sci-Fi"], year: 2021, playtime: "2h 28m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Eternals", genre: ["Action", "Adventure", "Fantasy"], year: 2021, playtime: "2h 37m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Shang-Chi and the Legend of the Ten Rings", genre: ["Action", "Adventure", "Fantasy"], year: 2021, playtime: "2h 12m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Spider-Man: Far From Home", genre: ["Action", "Adventure", "Comedy"], year: 2019, playtime: "2h 09m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Avengers: Endgame", genre: ["Action", "Adventure", "Sci-Fi"], year: 2019, playtime: "3h 01m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Captain Marvel", genre: ["Action", "Adventure", "Sci-Fi"], year: 2019, playtime: "2h 04m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Ant-Man and the Wasp", genre: ["Action", "Adventure", "Comedy"], year: 2018, playtime: "1h 58m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Avengers: Infinity War", genre: ["Action", "Adventure", "Sci-Fi"], year: 2018, playtime: "2h 29m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Black Panther", genre: ["Action", "Adventure", "Sci-Fi"], year: 2018, playtime: "2h 14m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Thor: Ragnarok", genre: ["Action", "Sci-Fi", "Comedy"], year: 2017, playtime: "2h 10m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Spider-Man: Homecoming", genre: ["Action", "Adventure", "Sci-Fi"], year: 2017, playtime: "2h 13m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Guardians of the Galaxy Vol. 2", genre: ["Action", "Sci-Fi", "Comedy"], year: 2017, playtime: "2h 16m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Doctor Strange", genre: ["Action", "Fantasy", "Sci-Fi"], year: 2016, playtime: "1h 55m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Captain America: Civil War", genre: ["Action", "Sci-Fi", "Adventure"], year: 2016, playtime: "2h 27m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Ant-Man", genre: ["Action", "Comedy", "Sci-Fi"], year: 2015, playtime: "1h 57m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Avengers: Age of Ultron", genre: ["Action", "Sci-Fi", "Adventure"], year: 2015, playtime: "2h 21m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Guardians of the Galaxy", genre: ["Action", "Sci-Fi", "Adventure"], year: 2014, playtime: "2h 01m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Captain America: The Winter Soldier", genre: ["Action", "Thriller", "Sci-Fi"], year: 2014, playtime: "2h 16m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Thor: The Dark World", genre: ["Action", "Fantasy", "Adventure"], year: 2013, playtime: "1h 52m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Iron Man 3", genre: ["Action", "Sci-Fi", "Adventure"], year: 2013, playtime: "2h 10m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "The Avengers", genre: ["Action", "Sci-Fi", "Adventure"], year: 2012, playtime: "2h 23m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Captain America: The First Avenger", genre: ["Action", "Adventure", "Sci-Fi"], year: 2011, playtime: "2h 04m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Thor", genre: ["Action", "Fantasy", "Adventure"], year: 2011, playtime: "1h 55m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Iron Man 2", genre: ["Action", "Sci-Fi", "Adventure"], year: 2010, playtime: "2h 04m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "The Incredible Hulk", genre: ["Action", "Sci-Fi", "Adventure"], year: 2008, playtime: "1h 52m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Iron Man", genre: ["Action", "Sci-Fi", "Adventure"], year: 2008, playtime: "2h 06m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Office Romance", genre: ["Romance", "Comedy"], year: 2026, playtime: "1h 52m", language: "English", platform: "Netflix", status: "Watched" },
+    { name: "Citizen Vigilante", genre: ["Action", "Thriller", "Crime"], year: 2026, playtime: "1h 30m", language: "English", platform: "Other", status: "Watched" },
+    { name: "Enola Holmes 3", genre: ["Mystery", "Crime", "Drama"], year: 2026, playtime: "1h 45m", language: "English", platform: "Netflix", status: "Planned" },
+    { name: "Voicemails for Isabelle", genre: ["Romance", "Comedy", "Drama"], year: 2026, playtime: "1h 59m", language: "English", platform: "Netflix", status: "Watched" },
+    { name: "The Devil Wears Prada 2", genre: ["Comedy", "Drama"], year: 2026, playtime: "1h 59m", language: "English", platform: "Disney+", status: "Planned" },
+    { name: "The Sheep Detectives", genre: ["Comedy", "Mystery", "Fantasy"], year: 2026, playtime: "1h 49m", language: "English", platform: "Prime", status: "Watched" },
+    { name: "Obsession", genre: ["Horror", "Romance", "Comedy"], year: 2026, playtime: "1h 48m", language: "English", platform: "Theater", status: "Planned" },
+    { name: "Project Hail Mary", genre: ["Sci-Fi", "Drama", "Comedy"], year: 2026, playtime: "2h 36m", language: "English", platform: "Theater", status: "Planned" },
+    { name: "Thunderbolts*", genre: ["Action", "Sci-Fi", "Thriller"], year: 2025, playtime: "2h 06m", language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Superman", genre: ["Action", "Sci-Fi", "Fantasy"], year: 2025, playtime: "2h 09m", language: "English", platform: "Other", status: "Watched" },
+    { name: "Materialists", genre: ["Romance", "Comedy", "Drama"], year: 2025, playtime: "1h 56m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Hamnet", genre: ["Drama", "Biography", "Historical"], year: 2025, playtime: "2h 05m", language: "English", platform: "Other", status: "Planned" },
+    { name: "Sinners", genre: ["Horror", "Drama", "Thriller"], year: 2025, playtime: "2h 17m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Dune: Part Two", genre: ["Sci-Fi", "Action", "Drama"], year: 2024, playtime: "2h 46m", language: "English", platform: "HBO", status: "Watched" },
+    { name: "Anora", genre: ["Comedy", "Drama", "Romance"], year: 2024, playtime: "2h 19m", language: "English", platform: "Other", status: "Watched" },
     { name: "Jerry Maguire", genre: ["Comedy", "Drama", "Romance"], year: 1996, playtime: "2h 19m", language: "English", platform: "Netflix", status: "Watched" },
     { name: "Vanilla Sky", genre: ["Sci-Fi", "Thriller", "Romance"], year: 2001, playtime: "2h 16m", language: "English", platform: "Netflix", status: "Watched" },
     { name: "Edge of Tomorrow", genre: ["Action", "Sci-Fi", "Adventure"], year: 2014, playtime: "1h 53m", language: "English", platform: "Prime", status: "Watched" },
@@ -335,11 +405,34 @@ export const moviesData: Record<string, Movie[]> = {
     { name: "Top Gun: Maverick", genre: ["Action", "Drama"], year: 2022, playtime: "2h 10m", language: "English", platform: "Theater", status: "Watched" },
     { name: "The Greatest Showman", genre: ["Biography", "Drama", "Musical"], year: 2017, playtime: "1h 45m", language: "English", platform: "Disney+", status: "Watched" },
     { name: "Then Came You", genre: ["Adventure", "Comedy", "Drama"], year: 2018, playtime: "1h 37m", language: "English", platform: "Prime", status: "Watched" }
-  ]
+  ],
+  Portuguese: [
+    { name: "The Secret Agent", genre: ["Thriller", "Drama", "Crime"], year: 2025, playtime: "2h 41m", language: "Portuguese", platform: "Other", status: "Watched" },
+  ],
 };
 
 export const tvShowsData: Record<Language, TVShow[]> = {
   English: [
+    { name: "Ironheart", genre: ["Action", "Crime", "Sci-Fi"], yearRange: "2025", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Daredevil: Born Again", genre: ["Action", "Crime", "Drama"], yearRange: "2025-Present", seasons: 2, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "X-Men '97", genre: ["Action", "Sci-Fi", "Animation"], yearRange: "2024-Present", seasons: 2, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Agatha All Along", genre: ["Fantasy", "Comedy", "Thriller"], yearRange: "2024", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Echo", genre: ["Action", "Crime", "Drama"], yearRange: "2024", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Secret Invasion", genre: ["Action", "Thriller", "Sci-Fi"], yearRange: "2023", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "She-Hulk: Attorney at Law", genre: ["Action", "Comedy", "Drama"], yearRange: "2022", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Ms. Marvel", genre: ["Action", "Comedy", "Fantasy"], yearRange: "2022", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Moon Knight", genre: ["Action", "Fantasy", "Thriller"], yearRange: "2022", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Hawkeye", genre: ["Action", "Crime", "Drama"], yearRange: "2021", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "What If...?", genre: ["Action", "Sci-Fi", "Animation"], yearRange: "2021-2024", seasons: 3, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "Loki", genre: ["Action", "Sci-Fi", "Fantasy"], yearRange: "2021-2023", seasons: 2, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "The Falcon and the Winter Soldier", genre: ["Action", "Drama", "Thriller"], yearRange: "2021", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "WandaVision", genre: ["Drama", "Fantasy", "Sci-Fi"], yearRange: "2021", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
+    { name: "The Punisher", genre: ["Action", "Crime", "Drama"], yearRange: "2017-2019", seasons: 2, language: "English", platform: "Netflix", status: "Watched" },
+    { name: "The Defenders", genre: ["Action", "Crime"], yearRange: "2017", seasons: 1, language: "English", platform: "Netflix", status: "Watched" },
+    { name: "Iron Fist", genre: ["Action", "Drama", "Fantasy"], yearRange: "2017-2018", seasons: 2, language: "English", platform: "Netflix", status: "Watched" },
+    { name: "Luke Cage", genre: ["Action", "Crime", "Drama"], yearRange: "2016-2018", seasons: 2, language: "English", platform: "Netflix", status: "Watched" },
+    { name: "Jessica Jones", genre: ["Crime", "Drama", "Thriller"], yearRange: "2015-2019", seasons: 3, language: "English", platform: "Netflix", status: "Watched" },
+    { name: "Daredevil", genre: ["Action", "Crime", "Drama"], yearRange: "2015-2018", seasons: 3, language: "English", platform: "Netflix", status: "Watched" },
     { name: "Sex Education", genre: ["Comedy", "Drama", "Romance"], yearRange: "2019-2023", seasons: 4, language: "English", platform: "Netflix", status: "Watched" },
     { name: "Shogun", genre: ["Historical", "Drama", "Action"], yearRange: "2024", seasons: 1, language: "English", platform: "Disney+", status: "Watched" },
     { name: "Adolescence", genre: ["Crime", "Drama", "Thriller"], yearRange: "2025", seasons: 1, language: "English", platform: "Netflix", status: "Watched" },
@@ -491,7 +584,6 @@ export const tvShowsData: Record<Language, TVShow[]> = {
   ],
   Indonesian: [
     { name: "The Big 4", genre: ["Action", "Comedy"], yearRange: "2022", language: "Indonesian", seasons: 1, platform: "Netflix", status: "Watched" },
-    { name: "Hellbound", genre: ["Horror", "Fantasy"], yearRange: "2021", language: "Indonesian", seasons: 1, platform: "Netflix", status: "Watching" },
     { name: "Detektif Jaga Malam", genre: ["Mystery", "Comedy"], yearRange: "2023", language: "Indonesian", seasons: 1, platform: "Netflix", status: "Planned" },
   ],
   Filipino: [

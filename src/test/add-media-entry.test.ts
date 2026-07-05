@@ -140,6 +140,25 @@ describe("insertEntryIntoSource against the real mediaData.ts", () => {
     expect(updated).toContain("Klingon: [\n" + entryLine + "\n  ],");
   });
 
+  it("inserts a comma after the previously-last key when it didn't already end with one", () => {
+    // Regression test: the file's existing last key doesn't always have a trailing
+    // comma before the closing "};" — a new key must not get concatenated onto it
+    // without a separating comma (that produced a real syntax error once).
+    const noTrailingComma = 'export const moviesData = {\n  Hindi: [\n    { name: "X" }\n  ]\n};\n\nexport const tvShowsData';
+    const entryLine = serializeMovieLine({ name: "New Movie", genre: ["Drama"], year: 2025, playtime: "2h 00m", language: "Klingon" });
+    const updated = insertEntryIntoSource(noTrailingComma, "moviesData", "Klingon", entryLine);
+    expect(updated).toContain('  ],\n  Klingon: [');
+    expect(updated).not.toMatch(/\]\s*\n\s*Klingon/); // the old buggy shape: "]" directly followed by the new key, no comma
+  });
+
+  it("does not duplicate the comma when the previously-last key already ends with one", () => {
+    const withTrailingComma = 'export const moviesData = {\n  Hindi: [\n    { name: "X" }\n  ],\n};\n\nexport const tvShowsData';
+    const entryLine = serializeMovieLine({ name: "New Movie", genre: ["Drama"], year: 2025, playtime: "2h 00m", language: "Klingon" });
+    const updated = insertEntryIntoSource(withTrailingComma, "moviesData", "Klingon", entryLine);
+    expect(updated).not.toContain(",,");
+    expect(updated).toContain('  ],\n  Klingon: [');
+  });
+
   it("quotes a new language key that isn't a valid bare identifier", () => {
     const entryLine = serializeMovieLine({
       name: "Multi Word Lang Movie",

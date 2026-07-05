@@ -51,7 +51,9 @@ The one exception is the hidden `/admin` page (see [Admin add-media flow](#admin
     ├── lib/
     │   ├── utils.ts            # cn() class merge helper
     │   ├── adminAuth.ts        # client-side hash-based password gate for /admin
-    │   └── githubWorkflow.ts   # triggers add-media.yml via GitHub's workflow_dispatch API
+    │   ├── githubWorkflow.ts   # triggers add-media.yml via GitHub's workflow_dispatch API
+    │   ├── adminFormUtils.ts   # resolveLanguage() — "Other" language selection helper for AddMediaForm
+    │   └── tvShowUtils.ts      # parseYear() — extracts a leading year from a TV show's yearRange
     └── test/                   # vitest setup + tests
 ```
 
@@ -130,7 +132,7 @@ Admin browser (password gate + form)
 
 Vitest + jsdom + Testing Library (`vitest.config.ts`, `src/test/setup.ts` — mocks matchMedia/ResizeObserver/scrollIntoView/scrollBy). `npm test` runs once (CI mode, with `--coverage`); `npm run test:watch` for development. **Every change must ship with tests, every source file must be covered, and coverage must stay at 100%** (lines/branches/functions/statements) — the file→suite mapping, coverage exclusion policy, and the narrow `/* v8 ignore */` exception for genuinely-unreachable defensive code live in [.claude/rules.md](.claude/rules.md). Suites:
 
-- `src/test/mediaData.test.ts` — catalog integrity (valid languages/statuses/platforms/years, entries filed under their own language, no duplicate names) and helper contracts (`getStats`, `getAllGenres`, `getPlatformColor`)
+- `src/test/mediaData.test.ts` — catalog integrity (valid languages/statuses/platforms/years, entries filed under their own language, no duplicate names within a language, no entry catalogued under more than one language) and helper contracts (`getStats`, `getAllGenres`, `getPlatformColor`)
 - `src/test/app.test.tsx` — App providers + routing for `/`, `/movies`, `/tv-shows`, `/admin`, the 404 fallback, the portfolio-synced About Me card
 - `src/test/pages.test.tsx` — per-page rendering: Index hero/About/hobbies, Movies/TVShows (default catalogs, genre/status filters, all three sort orders, empty-catalog language), NotFound clapperboard + escape links
 - `src/test/components.test.tsx` — Header (links + active state), Footer, MediaCard (movie/TV variants), HorizontalCarousel (incl. empty state and scroll button interactions), FilterControls (conditional status selector, language/sort selection), NavLink (active class)
@@ -140,3 +142,5 @@ Vitest + jsdom + Testing Library (`vitest.config.ts`, `src/test/setup.ts` — mo
 - `src/test/githubWorkflow.test.ts` — token storage, `getKnownLanguageKeys`/`findDuplicateEntry`, and the `workflow_dispatch` request shape/error handling (mocked `fetch`)
 - `src/test/add-media-entry.test.ts` — the splice algorithm against the real `mediaData.ts` (existing-language insert, new-language block, TV vs. movie), plus the CLI wrapper both in-process and as a real spawned subprocess
 - `src/test/admin.test.tsx` — `LoginForm`, `Admin` page's three-state flow (login → connect GitHub → add-media form), and `AddMediaForm` (validation, duplicate warnings, both media types, success/error paths)
+- `src/test/adminFormUtils.test.ts` — `resolveLanguage()`'s plain/"Other"/missing-new-name cases
+- `src/test/tvShowUtils.test.ts` — `parseYear()`'s leading-year extraction and no-match fallback
