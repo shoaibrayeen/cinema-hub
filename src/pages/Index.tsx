@@ -59,19 +59,19 @@ const Index = () => {
               
               <div className="space-y-4 text-muted-foreground text-sm leading-relaxed">
                 <p>
-                  I am <span className="text-foreground font-semibold">Mohd Shoaib Rayeen</span>, 
-                  a Senior Software Engineer specializing in Backend Architecture, AI Integrations, 
-                  and Scalable Distributed Systems.
+                  I am <span className="text-foreground font-semibold">Mohd Shoaib Rayeen</span>,
+                  a Technical Lead with 6+ years of experience architecting scalable backend systems,
+                  AI-powered pipelines, and LLM-integrated workflows across legal-tech and fintech domains.
                 </p>
-                
+
                 <p>
-                  Currently focused on Contractual Metadata Extraction through LLM, MCP Integration 
-                  and Agentic AI Integration. Passionate about creating resilient, high-performance 
-                  solutions that serve millions of users globally.
+                  Delivering production-grade Generative AI, RAG, and MCP server solutions, and building
+                  high-performance, resilient distributed systems that serve millions of users across
+                  multiple countries.
                 </p>
-                
+
                 <div className="flex flex-wrap gap-2 pt-2">
-                  {["Backend Architecture", "AI Integrations", "Distributed Systems", "LLM"].map((skill) => (
+                  {["Backend Architecture", "AI Integrations", "Distributed Systems", "Gen AI / RAG / MCP"].map((skill) => (
                     <span
                       key={skill}
                       className="px-3 py-1 text-xs bg-muted rounded-full text-muted-foreground border border-border/30"

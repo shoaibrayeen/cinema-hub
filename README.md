@@ -36,3 +36,7 @@ Client-side routing on GitHub Pages uses the [spa-github-pages](https://github.c
 - `src/pages/` — `Index`, `Movies`, `TVShows`, `NotFound`
 - `src/components/` — layout and UI components (shadcn/ui under `src/components/ui/`)
 - `src/data/mediaData.ts` — the movie and TV show catalog data
+
+## Architecture
+
+See [architecture.md](architecture.md) for the full architecture and [architecture.svg](architecture.svg) for the flow diagram. Both are kept in sync with every change (see [CLAUDE.md](CLAUDE.md)).

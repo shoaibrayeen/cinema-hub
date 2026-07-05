@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 980" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#8a8a8a"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#DC2828"/>
+    </marker>
+    <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#DC2828"/>
+      <stop offset="1" stop-color="#BE0F2C"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1040" height="980" fill="#ffffff"/>
+
+  <!-- Header -->
+  <rect x="24" y="22" width="34" height="34" rx="8" fill="url(#logoGrad)"/>
+  <path d="M37 31 L49 39 L37 47 Z" fill="#ffffff"/>
+  <text x="70" y="46" font-size="22" font-weight="700" fill="#1a1a1a">CinemaHub — Architecture Flow</text>
+  <text x="70" y="64" font-size="12" fill="#8a8a8a">Static React SPA on GitHub Pages (project site at /cinema-hub/) · keep in sync with architecture.md</text>
+
+  <!-- ============ Band 1: Build and Deploy ============ -->
+  <rect x="20" y="86" width="1000" height="150" rx="12" fill="#fafafa" stroke="#e6e6e6"/>
+  <text x="36" y="112" font-size="15" font-weight="700" fill="#DC2828">1 · BUILD &amp; DEPLOY</text>
+
+  <rect x="40" y="136" width="150" height="62" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="115" y="162" font-size="13" font-weight="600" fill="#333" text-anchor="middle">Developer</text>
+  <text x="115" y="180" font-size="11" fill="#777" text-anchor="middle">git push / merge → master</text>
+
+  <line x1="190" y1="167" x2="248" y2="167" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="219" y="158" font-size="10" fill="#8a8a8a" text-anchor="middle">trigger</text>
+
+  <rect x="250" y="128" width="460" height="80" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="480" y="150" font-size="13" font-weight="600" fill="#333" text-anchor="middle">GitHub Actions · deploy.yml</text>
+  <rect x="266" y="162" width="76" height="30" rx="15" fill="#f2f2f2" stroke="#dddddd"/>
+  <text x="304" y="181" font-size="11" fill="#555" text-anchor="middle">npm ci</text>
+  <line x1="342" y1="177" x2="360" y2="177" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <rect x="362" y="162" width="86" height="30" rx="15" fill="#f2f2f2" stroke="#dddddd"/>
+  <text x="405" y="181" font-size="11" fill="#555" text-anchor="middle">npm test</text>
+  <line x1="448" y1="177" x2="466" y2="177" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <rect x="468" y="162" width="90" height="30" rx="15" fill="#f2f2f2" stroke="#dddddd"/>
+  <text x="513" y="181" font-size="11" fill="#555" text-anchor="middle">vite build</text>
+  <line x1="558" y1="177" x2="576" y2="177" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <rect x="578" y="162" width="116" height="30" rx="15" fill="#f2f2f2" stroke="#dddddd"/>
+  <text x="636" y="181" font-size="11" fill="#555" text-anchor="middle">deploy dist/</text>
+
+  <line x1="710" y1="167" x2="768" y2="167" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="770" y="136" width="220" height="62" rx="8" fill="#fff5f5" stroke="#DC2828"/>
+  <text x="880" y="162" font-size="13" font-weight="600" fill="#BE0F2C" text-anchor="middle">GitHub Pages</text>
+  <text x="880" y="180" font-size="11" fill="#a05252" text-anchor="middle">shoaibrayeen.github.io/cinema-hub/</text>
+
+  <!-- ============ Band 2: Request flow ============ -->
+  <rect x="20" y="256" width="1000" height="230" rx="12" fill="#fafafa" stroke="#e6e6e6"/>
+  <text x="36" y="282" font-size="15" font-weight="700" fill="#DC2828">2 · REQUEST FLOW (SPA deep links on Pages)</text>
+
+  <rect x="40" y="330" width="140" height="90" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="110" y="370" font-size="13" font-weight="600" fill="#333" text-anchor="middle">Browser</text>
+  <text x="110" y="388" font-size="11" fill="#777" text-anchor="middle">user request</text>
+
+  <!-- direct hit path -->
+  <line x1="180" y1="352" x2="428" y2="322" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="300" y="322" font-size="10.5" fill="#8a8a8a" text-anchor="middle">GET /cinema-hub/  →  200 OK</text>
+
+  <!-- deep link path -->
+  <line x1="180" y1="398" x2="278" y2="426" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="110" y="440" font-size="10.5" fill="#8a8a8a" text-anchor="middle">GET /cinema-hub/movies</text>
+  <text x="110" y="453" font-size="10.5" fill="#8a8a8a" text-anchor="middle">→ 404</text>
+
+  <rect x="280" y="404" width="240" height="56" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="400" y="427" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">public/404.html</text>
+  <text x="400" y="444" font-size="10.5" fill="#777" text-anchor="middle">pathSegmentsToKeep = 1</text>
+
+  <line x1="520" y1="424" x2="520" y2="360" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="536" y="396" font-size="10.5" fill="#8a8a8a">redirect to /cinema-hub/?/movies</text>
+
+  <rect x="430" y="296" width="250" height="60" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="555" y="320" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">index.html</text>
+  <text x="555" y="338" font-size="10.5" fill="#777" text-anchor="middle">decode script: history.replaceState</text>
+
+  <line x1="680" y1="326" x2="768" y2="326" stroke="#DC2828" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+  <text x="724" y="316" font-size="10.5" fill="#DC2828" text-anchor="middle">clean URL</text>
+
+  <rect x="770" y="296" width="220" height="60" rx="8" fill="#fff5f5" stroke="#DC2828"/>
+  <text x="880" y="320" font-size="12.5" font-weight="600" fill="#BE0F2C" text-anchor="middle">React Router 6</text>
+  <text x="880" y="338" font-size="10.5" fill="#a05252" text-anchor="middle">basename = /cinema-hub/</text>
+
+  <text x="40" y="472" font-size="10.5" fill="#999">Pages has no SPA rewrites: unknown paths hit 404.html, which encodes the route into the query string; index.html restores it before React mounts.</text>
+
+  <!-- ============ Band 3: Application structure ============ -->
+  <rect x="20" y="506" width="1000" height="448" rx="12" fill="#fafafa" stroke="#e6e6e6"/>
+  <text x="36" y="532" font-size="15" font-weight="700" fill="#DC2828">3 · APPLICATION STRUCTURE</text>
+
+  <rect x="40" y="556" width="150" height="50" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="115" y="578" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">src/main.tsx</text>
+  <text x="115" y="595" font-size="10.5" fill="#777" text-anchor="middle">mounts App into #root</text>
+
+  <line x1="190" y1="581" x2="248" y2="581" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="250" y="548" width="740" height="66" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="620" y="572" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">src/App.tsx — providers &amp; routing</text>
+  <text x="620" y="592" font-size="10.5" fill="#777" text-anchor="middle">QueryClientProvider · TooltipProvider · Toaster / Sonner · BrowserRouter basename={import.meta.env.BASE_URL}</text>
+
+  <!-- routes -->
+  <line x1="330" y1="614" x2="150" y2="656" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="520" y1="614" x2="390" y2="656" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="720" y1="614" x2="640" y2="656" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="900" y1="614" x2="880" y2="656" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="60" y="658" width="190" height="66" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="155" y="681" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">Index</text>
+  <text x="155" y="698" font-size="10.5" fill="#777" text-anchor="middle">route: /</text>
+  <text x="155" y="712" font-size="10.5" fill="#777" text-anchor="middle">landing · about · portfolio</text>
+
+  <rect x="300" y="658" width="190" height="66" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="395" y="681" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">Movies</text>
+  <text x="395" y="698" font-size="10.5" fill="#777" text-anchor="middle">route: /movies</text>
+  <text x="395" y="712" font-size="10.5" fill="#777" text-anchor="middle">filter · sort · status carousels</text>
+
+  <rect x="550" y="658" width="190" height="66" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="645" y="681" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">TVShows</text>
+  <text x="645" y="698" font-size="10.5" fill="#777" text-anchor="middle">route: /tv-shows</text>
+  <text x="645" y="712" font-size="10.5" fill="#777" text-anchor="middle">filter · sort · status carousels</text>
+
+  <rect x="790" y="658" width="190" height="66" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="885" y="681" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">NotFound</text>
+  <text x="885" y="698" font-size="10.5" fill="#777" text-anchor="middle">route: *</text>
+  <text x="885" y="712" font-size="10.5" fill="#777" text-anchor="middle">clapperboard 404 · Links</text>
+
+  <!-- components layer -->
+  <line x1="395" y1="724" x2="395" y2="760" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="155" y1="724" x2="220" y2="760" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="645" y1="724" x2="560" y2="760" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="60" y="762" width="640" height="66" rx="8" fill="#ffffff" stroke="#c9c9c9"/>
+  <text x="380" y="786" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">Shared components — src/components/</text>
+  <text x="380" y="806" font-size="10.5" fill="#777" text-anchor="middle">Header · Footer · FilterControls · MediaCard · HorizontalCarousel · NavLink</text>
+
+  <rect x="740" y="762" width="240" height="66" rx="8" fill="#ffffff" stroke="#c9c9c9" stroke-dasharray="4 3"/>
+  <text x="860" y="786" font-size="12.5" font-weight="600" fill="#333" text-anchor="middle">shadcn/ui + hooks</text>
+  <text x="860" y="806" font-size="10.5" fill="#777" text-anchor="middle">src/components/ui (49) · use-toast · use-mobile</text>
+  <line x1="700" y1="795" x2="738" y2="795" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- data layer -->
+  <line x1="380" y1="828" x2="380" y2="864" stroke="#DC2828" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+  <text x="396" y="850" font-size="10.5" fill="#DC2828">direct import — no fetching, no backend</text>
+
+  <rect x="60" y="866" width="640" height="66" rx="8" fill="#fff5f5" stroke="#DC2828"/>
+  <text x="380" y="890" font-size="12.5" font-weight="600" fill="#BE0F2C" text-anchor="middle">Data layer — src/data/mediaData.ts (single source of truth)</text>
+  <text x="380" y="910" font-size="10.5" fill="#a05252" text-anchor="middle">LANGUAGES (15) · moviesData · tvShowsData · Movie / TVShow · getStats · getAllGenres · getPlatformColor</text>
+
+  <text x="740" y="905" font-size="10.5" fill="#999">Static TypeScript catalog,</text>
+  <text x="740" y="919" font-size="10.5" fill="#999">compiled into the bundle.</text>
+</svg>
