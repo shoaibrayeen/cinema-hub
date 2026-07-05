@@ -19,7 +19,7 @@ const Index = () => {
           <div className="container relative mx-auto px-4 py-20 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
               <Play className="h-4 w-4 text-primary fill-current" />
-              <span className="text-sm text-primary font-medium">Your Personal Watchlist</span>
+              <span className="text-sm text-primary font-medium">My Personal Watchlist</span>
             </div>
             
             <h1 className="font-display text-6xl md:text-8xl tracking-wider text-foreground mb-6">

@@ -14,7 +14,7 @@ describe("Index page", () => {
   it("renders the hero with browse links", () => {
     renderPage(<Index />);
     expect(screen.getByRole("heading", { level: 1, name: /cinema\s*hub/i })).toBeInTheDocument();
-    expect(screen.getByText(/your personal watchlist/i)).toBeInTheDocument();
+    expect(screen.getByText(/my personal watchlist/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /browse movies/i })).toHaveAttribute("href", "/movies");
     expect(screen.getByRole("link", { name: /explore tv shows/i })).toHaveAttribute("href", "/tv-shows");
   });

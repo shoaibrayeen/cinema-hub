@@ -10,6 +10,11 @@ permissions:
   pages: write
   id-token: write
 
+# Silence DEP0040 (built-in `punycode` deprecation) emitted by GitHub's own
+# action runtimes (e.g. actions/deploy-pages) — cosmetic, not from this repo.
+env:
+  NODE_OPTIONS: --disable-warning=DEP0040
+
 concurrency:
   group: "pages"
   cancel-in-progress: false

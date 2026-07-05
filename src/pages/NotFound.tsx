@@ -66,7 +66,7 @@ const NotFound = () => {
 
           <p className="text-sm md:text-base text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
             Either the reel went missing, the director hated it, or you typed a URL
-            that was never in the script. The show must go on though — pick your next scene:
+            that was never in the script. The show must go on though — pick the next scene:
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
