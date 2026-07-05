@@ -7,43 +7,35 @@ import MediaCard from "@/components/MediaCard";
 import HorizontalCarousel from "@/components/HorizontalCarousel";
 import { tvShowsData, getAllGenres, type Language } from "@/data/mediaData";
 
+const parseYear = (yearRange: string): number => {
+  const match = yearRange.match(/^\d{4}/);
+  return match ? parseInt(match[0]) : 0;
+};
+
 const TVShows = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("Korean");
   const [sortBy, setSortBy] = useState<"year-desc" | "year-asc" | "name">("year-desc");
   const [selectedGenre, setSelectedGenre] = useState<string>("all");
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
-  
+
   const genres = useMemo(() => getAllGenres("tvshow"), []);
-  
-  const parseYear = (yearRange: string): number => {
-    const match = yearRange.match(/^\d{4}/);
-    return match ? parseInt(match[0]) : 0;
-  };
-  
-  const sortShows = (shows: typeof tvShowsData.Korean) => {
-    return [...shows].sort((a, b) => {
+
+  const shows = useMemo(() => {
+    let filtered = tvShowsData[selectedLanguage] || [];
+
+    if (selectedGenre !== "all") {
+      filtered = filtered.filter((show) => show.genre.includes(selectedGenre));
+    }
+
+    if (selectedStatus !== "all") {
+      filtered = filtered.filter((show) => show.status === selectedStatus);
+    }
+
+    return [...filtered].sort((a, b) => {
       if (sortBy === "year-desc") return parseYear(b.yearRange) - parseYear(a.yearRange);
       if (sortBy === "year-asc") return parseYear(a.yearRange) - parseYear(b.yearRange);
       return a.name.localeCompare(b.name);
     });
-  };
-  
-  const filterShows = (shows: typeof tvShowsData.Korean) => {
-    let filtered = shows;
-    
-    if (selectedGenre !== "all") {
-      filtered = filtered.filter((show) => show.genre.includes(selectedGenre));
-    }
-    
-    if (selectedStatus !== "all") {
-      filtered = filtered.filter((show) => show.status === selectedStatus);
-    }
-    
-    return sortShows(filtered);
-  };
-  
-  const shows = useMemo(() => {
-    return filterShows(tvShowsData[selectedLanguage] || []);
   }, [selectedLanguage, sortBy, selectedGenre, selectedStatus]);
   
   // Group by status for carousel view

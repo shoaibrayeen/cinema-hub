@@ -17,6 +17,7 @@ All rules for working in this repo. The root `CLAUDE.md` imports this file; add 
   | `src/lib/utils.ts` | `src/test/utils.test.ts` |
 
 - **Exclusions (by policy):** `src/components/ui/**` (vendored shadcn/ui primitives — generated code, exercised indirectly), `src/main.tsx` (bootstrap), `src/test/**`, `vite-env.d.ts`, CSS files.
+- **Lint must stay clean:** `npm run lint` reports zero problems as of 2026-07-05 — keep it that way. The only exemption is `react-refresh/only-export-components` for `src/components/ui/**` (vendored files export variants alongside components by design; scoped off in `eslint.config.js`).
 - Framework: Vitest + Testing Library + jsdom (`vitest.config.ts`; shared mocks for matchMedia/ResizeObserver/scrollIntoView in `src/test/setup.ts`).
 - Run `npm test` before handing work over — all suites must pass. CI runs the suite on every push to `master` and a failure blocks deployment.
 
@@ -51,7 +52,7 @@ The entire catalog lives in `src/data/mediaData.ts` (`moviesData` / `tvShowsData
 
 - On this machine node/npm are not on PATH — prefix commands with:
   `export PATH=/Users/shoaib.rayeen/tools/node-v22.22.2-darwin-arm64/bin:$PATH`
-- Before any push: `npm test && npm run build` must pass. CI runs both and a failure blocks deployment.
+- Before any push: `npm test && npm run build && npm run lint` must all pass clean. CI runs test + build and a failure blocks deployment.
 - Every push/merge to `master` deploys to https://shoaibrayeen.github.io/cinema-hub/ via `.github/workflows/deploy.yml`. There is no staging environment.
 - Dev server: `npm run dev` → http://localhost:8080/cinema-hub/ (note the base path — the root URL shows Vite's hint page).
 - The repo owner commits and pushes; do not commit or push unless explicitly asked.

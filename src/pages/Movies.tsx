@@ -15,30 +15,22 @@ const Movies = () => {
   
   const genres = useMemo(() => getAllGenres("movie"), []);
   
-  const sortMovies = (movies: typeof moviesData.English) => {
-    return [...movies].sort((a, b) => {
+  const movies = useMemo(() => {
+    let filtered = moviesData[selectedLanguage] || [];
+
+    if (selectedGenre !== "all") {
+      filtered = filtered.filter((movie) => movie.genre.includes(selectedGenre));
+    }
+
+    if (selectedStatus !== "all") {
+      filtered = filtered.filter((movie) => movie.status === selectedStatus);
+    }
+
+    return [...filtered].sort((a, b) => {
       if (sortBy === "year-desc") return b.year - a.year;
       if (sortBy === "year-asc") return a.year - b.year;
       return a.name.localeCompare(b.name);
     });
-  };
-  
-  const filterMovies = (movies: typeof moviesData.English) => {
-    let filtered = movies;
-    
-    if (selectedGenre !== "all") {
-      filtered = filtered.filter((movie) => movie.genre.includes(selectedGenre));
-    }
-    
-    if (selectedStatus !== "all") {
-      filtered = filtered.filter((movie) => movie.status === selectedStatus);
-    }
-    
-    return sortMovies(filtered);
-  };
-  
-  const movies = useMemo(() => {
-    return filterMovies(moviesData[selectedLanguage] || []);
   }, [selectedLanguage, sortBy, selectedGenre, selectedStatus]);
   
   // Group by status for carousel view
