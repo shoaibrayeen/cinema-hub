@@ -469,5 +469,8 @@ export const getPlatformColor = (platform: Platform): string => {
     Theater: "platform-other",
     Other: "platform-other",
   };
+  // colors is an exhaustive Record<Platform, string>, so every valid Platform already has an
+  // entry — this fallback only guards against a value that bypassed the type system.
+  /* v8 ignore next */
   return colors[platform] || "platform-other";
 };

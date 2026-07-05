@@ -1,0 +1,78 @@
+name: Add Media Entry
+
+on:
+  workflow_dispatch:
+    inputs:
+      mediaType:
+        description: "movie or tvshow"
+        required: true
+      name:
+        description: "Title"
+        required: true
+      genre:
+        description: "Comma-separated genres"
+        required: true
+      language:
+        description: "Language key"
+        required: true
+      year:
+        description: "Release year (movie only)"
+        required: false
+      playtime:
+        description: "Runtime, e.g. 2h 15m (movie only)"
+        required: false
+      yearRange:
+        description: "Year range, e.g. 2024-Present (tvshow only)"
+        required: false
+      seasons:
+        description: "Season count (tvshow only)"
+        required: false
+      platform:
+        description: "Streaming platform (optional)"
+        required: false
+      status:
+        description: "Watched / Watching / Planned (optional)"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  add-media:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Splice new entry into mediaData.ts
+        env:
+          MEDIA_TYPE: ${{ inputs.mediaType }}
+          MEDIA_NAME: ${{ inputs.name }}
+          MEDIA_GENRE: ${{ inputs.genre }}
+          MEDIA_LANGUAGE: ${{ inputs.language }}
+          MEDIA_YEAR: ${{ inputs.year }}
+          MEDIA_PLAYTIME: ${{ inputs.playtime }}
+          MEDIA_YEAR_RANGE: ${{ inputs.yearRange }}
+          MEDIA_SEASONS: ${{ inputs.seasons }}
+          MEDIA_PLATFORM: ${{ inputs.platform }}
+          MEDIA_STATUS: ${{ inputs.status }}
+        run: node scripts/add-media-entry.mjs
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Update mediaData.ts - Add ${{ inputs.name }}"
+          title: "Add ${{ inputs.name }} (${{ inputs.language }})"
+          body: |
+            Opened automatically from the site's admin add-media form.
+
+            New entry landed at the top of the `${{ inputs.language }}` list — feel free to
+            move it manually before merging if you want it grouped with similar entries.
+          branch: add-media-${{ github.run_number }}

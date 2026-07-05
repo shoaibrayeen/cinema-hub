@@ -15,6 +15,9 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>(
         ref={ref}
         to={to}
         className={({ isActive, isPending }) =>
+          // isPending is only ever true under a data router with route loaders; this app uses
+          // a plain BrowserRouter with no loaders, so that branch can't be exercised in practice.
+          /* v8 ignore next */
           cn(className, isActive && activeClassName, isPending && pendingClassName)
         }
         {...props}

@@ -23,3 +23,6 @@ window.ResizeObserver = window.ResizeObserver ?? ResizeObserverMock;
 
 window.HTMLElement.prototype.scrollIntoView =
   window.HTMLElement.prototype.scrollIntoView ?? (() => {});
+
+window.HTMLElement.prototype.scrollBy =
+  window.HTMLElement.prototype.scrollBy ?? (() => {});

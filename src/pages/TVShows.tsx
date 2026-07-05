@@ -6,11 +6,7 @@ import FilterControls from "@/components/FilterControls";
 import MediaCard from "@/components/MediaCard";
 import HorizontalCarousel from "@/components/HorizontalCarousel";
 import { tvShowsData, getAllGenres, type Language } from "@/data/mediaData";
-
-const parseYear = (yearRange: string): number => {
-  const match = yearRange.match(/^\d{4}/);
-  return match ? parseInt(match[0]) : 0;
-};
+import { parseYear } from "@/lib/tvShowUtils";
 
 const TVShows = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("Korean");
