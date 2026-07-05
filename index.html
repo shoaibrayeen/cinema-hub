@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>CinemaHub - Movies & TV Shows Tracker</title>
+    <meta name="description" content="CinemaHub - A personal catalog of movies and TV shows, tracked by watch status, genre, language, and platform." />
+    <meta name="author" content="Mohd Shoaib Rayeen" />
+
+    <meta property="og:title" content="CinemaHub" />
+    <meta property="og:description" content="A personal catalog of movies and TV shows, tracked by watch status, genre, language, and platform." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shoaibrayeen.github.io/cinema-hub/" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="CinemaHub" />
+    <meta name="twitter:description" content="A personal catalog of movies and TV shows, tracked by watch status, genre, language, and platform." />
+
+    <link rel="canonical" href="https://shoaibrayeen.github.io/cinema-hub/" />
+
+    <!-- SPA redirect handler for GitHub Pages -->
+    <!-- https://github.com/rafgraph/spa-github-pages -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
