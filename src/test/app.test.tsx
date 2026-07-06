@@ -25,6 +25,13 @@ describe("routing", () => {
     renderAt("/tv-shows");
     expect(screen.getByRole("heading", { level: 1, name: /tv shows/i })).toBeInTheDocument();
   });
+
+  it("renders the hidden admin page at /admin (not linked from the nav)", () => {
+    renderAt("/admin");
+    expect(screen.getByRole("heading", { level: 1, name: /admin/i })).toBeInTheDocument();
+    renderAt("/");
+    expect(screen.queryByRole("link", { name: /admin/i })).not.toBeInTheDocument();
+  });
 });
 
 describe("404 fallback", () => {

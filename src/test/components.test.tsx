@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -88,6 +88,34 @@ describe("HorizontalCarousel", () => {
     );
     expect(container).toBeEmptyDOMElement();
   });
+
+  it("shows the left scroll button and scrolls both directions once scrolled away from the start", () => {
+    const scrollBySpy = vi.spyOn(window.HTMLElement.prototype, "scrollBy").mockImplementation(() => {});
+    const { container } = render(
+      <HorizontalCarousel title="WATCHED" itemCount={2}>
+        <div>child-a</div>
+        <div>child-b</div>
+      </HorizontalCarousel>
+    );
+    const track = container.querySelector(".overflow-x-auto") as HTMLDivElement;
+    Object.defineProperties(track, {
+      scrollLeft: { value: 50, configurable: true },
+      scrollWidth: { value: 1000, configurable: true },
+      clientWidth: { value: 500, configurable: true },
+    });
+    fireEvent.scroll(track);
+
+    const buttons = screen.getAllByRole("button");
+    expect(buttons).toHaveLength(2); // canScrollLeft is now true, so both arrows render
+
+    fireEvent.click(buttons[0]);
+    expect(scrollBySpy).toHaveBeenCalledWith({ left: -600, behavior: "smooth" });
+
+    fireEvent.click(buttons[1]);
+    expect(scrollBySpy).toHaveBeenCalledWith({ left: 600, behavior: "smooth" });
+
+    scrollBySpy.mockRestore();
+  });
 });
 
 describe("FilterControls", () => {
@@ -110,6 +138,28 @@ describe("FilterControls", () => {
   it("adds the status selector when onStatusChange is provided", () => {
     render(<FilterControls {...baseProps} selectedStatus="all" onStatusChange={noop} />);
     expect(screen.getAllByRole("combobox")).toHaveLength(4);
+  });
+
+  it("defaults the status selector to 'all' when selectedStatus is omitted", () => {
+    render(<FilterControls {...baseProps} onStatusChange={noop} />);
+    expect(screen.getByText("All Status")).toBeInTheDocument();
+  });
+
+  it("invokes onLanguageChange with the selected language", () => {
+    const onLanguageChange = vi.fn();
+    render(<FilterControls {...baseProps} onLanguageChange={onLanguageChange} />);
+    fireEvent.click(screen.getAllByRole("combobox")[0]);
+    fireEvent.click(screen.getByRole("option", { name: "Hindi" }));
+    expect(onLanguageChange).toHaveBeenCalledWith("Hindi");
+  });
+
+  it("invokes onSortChange with the selected sort key", () => {
+    const onSortChange = vi.fn();
+    render(<FilterControls {...baseProps} onSortChange={onSortChange} />);
+    const comboboxes = screen.getAllByRole("combobox");
+    fireEvent.click(comboboxes[comboboxes.length - 1]);
+    fireEvent.click(screen.getByRole("option", { name: "Name (A-Z)" }));
+    expect(onSortChange).toHaveBeenCalledWith("name");
   });
 });
 

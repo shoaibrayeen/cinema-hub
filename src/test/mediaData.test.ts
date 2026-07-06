@@ -71,6 +71,35 @@ describe("catalog integrity", () => {
       expect(new Set(names).size, `duplicates in ${lang}`).toBe(names.length);
     }
   });
+
+  it("has no duplicate TV show names within a language", () => {
+    for (const [lang, shows] of Object.entries(tvShowsData)) {
+      const names = shows.map((s) => s.name);
+      expect(new Set(names).size, `duplicates in ${lang}`).toBe(names.length);
+    }
+  });
+
+  it("has no movie catalogued under more than one language", () => {
+    const seen = new Map<string, string>();
+    for (const [lang, movies] of Object.entries(moviesData)) {
+      for (const movie of movies) {
+        const previousLang = seen.get(movie.name);
+        expect(previousLang, `"${movie.name}" appears in both ${previousLang} and ${lang}`).toBeUndefined();
+        seen.set(movie.name, lang);
+      }
+    }
+  });
+
+  it("has no TV show catalogued under more than one language", () => {
+    const seen = new Map<string, string>();
+    for (const [lang, shows] of Object.entries(tvShowsData)) {
+      for (const show of shows) {
+        const previousLang = seen.get(show.name);
+        expect(previousLang, `"${show.name}" appears in both ${previousLang} and ${lang}`).toBeUndefined();
+        seen.set(show.name, lang);
+      }
+    }
+  });
 });
 
 describe("helpers", () => {

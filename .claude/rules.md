@@ -13,13 +13,21 @@ All rules for working in this repo. The root `CLAUDE.md` imports this file; add 
   | `src/App.tsx` (providers + routing) | `src/test/app.test.tsx` |
   | `src/pages/*` (Index, Movies, TVShows, NotFound) | `src/test/pages.test.tsx` |
   | `src/components/*` (Header, Footer, MediaCard, HorizontalCarousel, FilterControls, NavLink) | `src/test/components.test.tsx` |
+  | `src/components/admin/*` (LoginForm, AddMediaForm) + `src/pages/Admin.tsx` | `src/test/admin.test.tsx` |
   | `src/hooks/*` (use-mobile, use-toast) | `src/test/hooks.test.tsx` |
   | `src/lib/utils.ts` | `src/test/utils.test.ts` |
+  | `src/lib/adminAuth.ts` | `src/test/adminAuth.test.ts` |
+  | `src/lib/githubWorkflow.ts` | `src/test/githubWorkflow.test.ts` |
+  | `src/lib/adminFormUtils.ts` | `src/test/adminFormUtils.test.ts` |
+  | `src/lib/tvShowUtils.ts` | `src/test/tvShowUtils.test.ts` |
+  | `scripts/add-media-entry.mjs` | `src/test/add-media-entry.test.ts` |
 
 - **Exclusions (by policy):** `src/components/ui/**` (vendored shadcn/ui primitives — generated code, exercised indirectly), `src/main.tsx` (bootstrap), `src/test/**`, `vite-env.d.ts`, CSS files.
+- **Coverage must stay at 100%** (lines/branches/functions/statements), enforced by the `thresholds` block in `vitest.config.ts` — `npm test` (which runs `vitest run --coverage`) fails the moment any of the four metrics drops below 100% for any included file. The `coverage.include`/`coverage.exclude` lists in `vitest.config.ts` mirror the mapping table and exclusions above (plus `scripts/**/*.mjs`).
+  - **`/* v8 ignore next */` (or `next N` / `start`…`stop`) is allowed only for code that is genuinely unreachable through the app's real behavior** — e.g. a fallback branch made impossible by an exhaustive `Record<Platform, string>`, or a `React Router` render-prop field (`isPending`) that can't be `true` without a data router this app doesn't use. Every ignore comment must carry a one-line reason directly above it. Do not reach for it to avoid writing a reasonably achievable test — prefer exporting a private helper and unit-testing it directly, spawning a real subprocess, or using fake timers/mocked `fetch`/`localStorage` before ignoring.
 - **Lint must stay clean:** `npm run lint` reports zero problems as of 2026-07-05 — keep it that way. The only exemption is `react-refresh/only-export-components` for `src/components/ui/**` (vendored files export variants alongside components by design; scoped off in `eslint.config.js`).
-- Framework: Vitest + Testing Library + jsdom (`vitest.config.ts`; shared mocks for matchMedia/ResizeObserver/scrollIntoView in `src/test/setup.ts`).
-- Run `npm test` before handing work over — all suites must pass. CI runs the suite on every push to `master` and a failure blocks deployment.
+- Framework: Vitest + Testing Library + jsdom (`vitest.config.ts`; shared mocks for matchMedia/ResizeObserver/scrollIntoView/scrollBy in `src/test/setup.ts`). Radix `Tabs` triggers activate on `onPointerDown`, not `onClick` — a bare `fireEvent.click` won't switch tabs in jsdom; fire `pointerDown`/`mouseDown`/`pointerUp`/`mouseUp`/`click` in sequence (see the `clickTab` helper in `admin.test.tsx`). Radix `Select` does respond to a plain `fireEvent.click` on the trigger and then the option.
+- Run `npm test` before handing work over — all suites must pass **and** coverage must report 100%. CI runs the suite on every push to `master` and a failure (test or coverage) blocks deployment.
 
 ## Architecture docs stay in sync (mandatory)
 
@@ -44,6 +52,13 @@ All rules for working in this repo. The root `CLAUDE.md` imports this file; add 
 
 This project was migrated away from Lovable. Never (re)introduce `lovable-tagger`, `lovable.dev`/`lovable.app` URLs, or Lovable meta tags — in code, config, lockfiles, or docs.
 
+## Admin add-media flow constraints (mandatory)
+
+- **Never commit the plaintext admin password anywhere** — not in this file, not in commit messages, not in code comments.
+- **The browser must never hold a repo-content-write credential.** The GitHub PAT pasted into the admin page's "Connect GitHub" step must be a fine-grained token scoped to **Actions: Read and write only** on this one repo — it exists only to call `workflow_dispatch`. The token that actually writes `mediaData.ts` and opens the PR is GitHub's own auto-issued `GITHUB_TOKEN` inside `.github/workflows/add-media.yml`, which never leaves that workflow run. Do not "simplify" this by having the browser call GitHub's Contents API directly with a stronger token.
+- **`scripts/add-media-entry.mjs`'s splice logic is coupled to `mediaData.ts`'s current shape** — the two-marker approach (`export const moviesData` → `export const tvShowsData` → `// Helper functions`) assumes those exact, unique strings exist in that order. If `mediaData.ts` is restructured, update the script (and its tests) in the same commit.
+- `/admin` must stay unlinked from `Header.tsx` and any other nav — it's reachable only by typing the URL.
+
 ## Data updates
 
 The entire catalog lives in `src/data/mediaData.ts` (`moviesData` / `tvShowsData`, keyed by language). Follow the `Movie`/`TVShow` interfaces; a new language must be added to `LANGUAGES` first (the data-integrity tests enforce this — an entry keyed under a language not in `LANGUAGES` is invisible in the UI's filters). There is no backend — do not add fetching for catalog data.
@@ -52,7 +67,7 @@ The entire catalog lives in `src/data/mediaData.ts` (`moviesData` / `tvShowsData
 
 - On this machine node/npm are not on PATH — prefix commands with:
   `export PATH=/Users/shoaib.rayeen/tools/node-v22.22.2-darwin-arm64/bin:$PATH`
-- Before any push: `npm test && npm run build && npm run lint` must all pass clean. CI runs test + build and a failure blocks deployment.
+- Before any push: `npm test && npm run build && npm run lint` must all pass clean (`npm test` runs with `--coverage` and enforces the 100% thresholds). CI runs test + build and a failure blocks deployment.
 - Every push/merge to `master` deploys to https://shoaibrayeen.github.io/cinema-hub/ via `.github/workflows/deploy.yml`. There is no staging environment.
 - Dev server: `npm run dev` → http://localhost:8080/cinema-hub/ (note the base path — the root URL shows Vite's hint page).
 - The repo owner commits and pushes; do not commit or push unless explicitly asked.

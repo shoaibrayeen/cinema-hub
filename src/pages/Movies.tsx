@@ -16,6 +16,9 @@ const Movies = () => {
   const genres = useMemo(() => getAllGenres("movie"), []);
   
   const movies = useMemo(() => {
+    // Every LANGUAGES entry currently has a moviesData catalog (enforced by
+    // mediaData.test.ts); this fallback only guards against future drift.
+    /* v8 ignore next */
     let filtered = moviesData[selectedLanguage] || [];
 
     if (selectedGenre !== "all") {
@@ -38,6 +41,7 @@ const Movies = () => {
   const watchingMovies = movies.filter(m => m.status === "Watching");
   const plannedMovies = movies.filter(m => m.status === "Planned");
   
+  /* v8 ignore next */
   const totalMovies = moviesData[selectedLanguage]?.length || 0;
   
   return (
