@@ -8,7 +8,7 @@ A personal catalog of movies and TV shows from around the world — browse by la
 
 ## Features
 
-- **Movies & TV Shows catalogs** — spanning 16 languages (English, Hindi, Korean, Chinese, Turkish, Spanish, Tamil, Telugu, Malayalam, and more)
+- **Movies & TV Shows catalogs** — spanning 17 languages (English, Hindi, French, Korean, Chinese, Turkish, Spanish, Tamil, Telugu, Malayalam, and more)
 - **Filtering & sorting** — by language, genre, and watch status; sort by year (newest/oldest) or name
 - **Watch-status carousels** — Currently Watching / Watched / Watchlist rows, switching to a grid when a specific status is selected
 - **Live catalog stats** — languages, titles, and genre counts computed from the data and shown in the footer
@@ -36,24 +36,28 @@ See **[architecture.md](architecture.md)** for the full architecture and **[arch
 ## Project Structure
 
 ```
-├── index.html                    # Meta tags + SPA-redirect decode script
-├── vite.config.ts                # base "/cinema-hub/", @ → src alias
-├── vitest.config.ts              # jsdom test environment
-├── .github/workflows/deploy.yml  # CI/CD: test → build → deploy to Pages
-├── .claude/rules.md              # project rules (imported by CLAUDE.md)
+├── index.html                     # Meta tags + SPA-redirect decode script
+├── vite.config.ts                 # base "/cinema-hub/", @ → src alias
+├── vitest.config.ts               # jsdom test environment, 100% coverage thresholds
+├── scripts/add-media-entry.mjs    # CI-only script: splices a new entry into mediaData.ts
+├── .github/workflows/
+│   ├── deploy.yml                 # CI/CD: test → build → deploy to Pages
+│   └── add-media.yml              # workflow_dispatch: runs add-media-entry.mjs, opens a PR
+├── .claude/rules.md               # project rules (imported by CLAUDE.md)
 ├── public/
-│   ├── 404.html                  # spa-github-pages redirect (pathSegmentsToKeep = 1)
-│   ├── .nojekyll                 # disable Jekyll on Pages
-│   └── favicon.svg               # red play-button logo
+│   ├── 404.html                   # spa-github-pages redirect (pathSegmentsToKeep = 1)
+│   ├── .nojekyll                  # disable Jekyll on Pages
+│   └── favicon.svg                # red play-button logo
 └── src/
-    ├── App.tsx                   # providers + router (/, /movies, /tv-shows, *)
-    ├── pages/                    # Index, Movies, TVShows, NotFound
-    ├── components/               # Header, Footer, FilterControls, MediaCard,
-    │   └── ui/                   #   HorizontalCarousel, NavLink + shadcn primitives
-    ├── data/mediaData.ts         # ★ the catalog — all movies/shows + helpers
-    ├── hooks/                    # use-mobile, use-toast
-    ├── lib/utils.ts              # cn() class merge helper
-    └── test/                     # vitest suites (see Testing)
+    ├── App.tsx                    # providers + router (/, /movies, /tv-shows, /admin, *)
+    ├── pages/                     # Index, Movies, TVShows, Admin (unlinked from nav), NotFound
+    ├── components/                # Header, Footer, FilterControls, MediaCard,
+    │   ├── admin/                 #   LoginForm, AddMediaForm (password-gated add-media UI)
+    │   └── ui/                    #   HorizontalCarousel, NavLink + shadcn primitives
+    ├── data/mediaData.ts          # ★ the catalog — all movies/shows + helpers
+    ├── hooks/                     # use-mobile, use-toast
+    ├── lib/                       # utils, adminAuth, githubWorkflow, adminFormUtils, tvShowUtils
+    └── test/                      # vitest suites (see Testing)
 ```
 
 ## Getting Started
@@ -78,14 +82,20 @@ All content lives in [src/data/mediaData.ts](src/data/mediaData.ts) as `moviesDa
 
 ## Testing
 
-Vitest + Testing Library + jsdom. **Every change must ship with tests, and every source file is covered** (mapping and exclusion policy in [.claude/rules.md](.claude/rules.md)):
+Vitest + Testing Library + jsdom. **Every change must ship with tests, every source file is covered, and coverage must stay at 100%** (lines/branches/functions/statements, enforced by `vitest.config.ts` — mapping and exclusion policy in [.claude/rules.md](.claude/rules.md)):
 
 | Suite | Covers |
 |---|---|
 | `src/test/mediaData.test.ts` | Catalog integrity (valid languages/statuses/platforms/years, no duplicates) + helper contracts |
-| `src/test/app.test.tsx` | Providers + routing for all routes, 404 fallback, About Me sync |
+| `src/test/app.test.tsx` | Providers + routing for all routes (including `/admin`), 404 fallback, About Me sync |
 | `src/test/pages.test.tsx` | Per-page rendering: Index, Movies (English default), TVShows (Korean default), NotFound |
 | `src/test/components.test.tsx` | Header, Footer, MediaCard, HorizontalCarousel, FilterControls, NavLink |
+| `src/test/admin.test.tsx` | Admin page flow: LoginForm, AddMediaForm (Movie + TV Show tabs) |
+| `src/test/adminAuth.test.ts` | Password hashing + verification, auth session storage |
+| `src/test/githubWorkflow.test.ts` | `workflow_dispatch` trigger, token storage |
+| `src/test/adminFormUtils.test.ts` | Add-media form field helpers |
+| `src/test/tvShowUtils.test.ts` | TV show helper utilities |
+| `src/test/add-media-entry.test.ts` | `scripts/add-media-entry.mjs` splice logic (movies, TV shows, new-language blocks) |
 | `src/test/hooks.test.tsx` | useIsMobile breakpoint, useToast add/limit/dismiss |
 | `src/test/utils.test.ts` | `cn()` class merging |
 
@@ -105,7 +115,7 @@ Client-side routing on Pages uses the [spa-github-pages](https://github.com/rafg
 
 All contributor/agent rules live in **[.claude/rules.md](.claude/rules.md)** (auto-loaded via [CLAUDE.md](CLAUDE.md)). The load-bearing ones:
 
-1. **Unit tests for every change** — same commit, every source file covered; `npm test && npm run build && npm run lint` must pass before pushing.
+1. **Unit tests for every change** — same commit, every source file covered, coverage stays at 100%; `npm test && npm run build && npm run lint` must pass before pushing.
 2. **Architecture docs stay in sync** — structural/flow changes must update `architecture.md` (and `architecture.svg` for flow changes) in the same commit.
 3. **About Me syncs from the portfolio** — https://shoaibrayeen.github.io/ is the single source of truth for the About Me card; sync flows one way only.
 4. **GitHub Pages constraints** — never remove the Vite `base`, router `basename`, `public/404.html`, the decode script, or `.nojekyll`.
