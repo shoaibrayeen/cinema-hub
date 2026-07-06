@@ -9,6 +9,10 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    // The catalog grows over time (mediaData.ts entries), so tests that render/filter/sort
+    // the full list get slower — especially on CI runners, which are slower than local dev
+    // machines. A generous global timeout avoids flaky failures as the data set grows.
+    testTimeout: 20000,
     coverage: {
       provider: "v8",
       include: ["src/**/*.{ts,tsx}", "scripts/**/*.mjs"],
